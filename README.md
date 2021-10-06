@@ -1,14 +1,18 @@
 # Renting Scraper
 
-## Core Code for Scrape
+### Core code for scrape
 
 - src/sraper.ts     (scrape single room page data)
 - src/discover.ts   (scrape all rooms from list)
 
-## Build Typescript to Javascript
+### Build typescript to javascript
 
-- yarn build
+```
+yarn build
+```
 
-## Command to scrape all rooms from list page, and write the results into tmp/rooms.csv
+### Command to scrape all rooms from list page, and write the results into tmp/rooms.csv
 
-- yarn discover https://sh.zu.anjuke.com/fangyuan/pudong-q-jinqiao/fx2-l2-x1-zj107/
+```
+yarn discover https://sh.zu.anjuke.com/fangyuan/pudong-q-jinqiao/fx2-l2-x1-zj107/
+```
