@@ -12,15 +12,14 @@ const discover = async () => {
   await page.goto(url);
 
   let moreResults = true;
-  const rooms: any = [];
+  const results: any = [];
 
   console.log(`// Parse content...`);
   while (moreResults) {
     await contentScrape.waitContentSelector(page);
-    const newRooms = await contentScrape.searchRoomItems(page);
+    const newItems = await contentScrape.searchContentItems(page);
 
-    rooms.push(...newRooms);
-
+    results.push(...newItems);
     try {
       await contentScrape.triggerContentPaginationSelector(page);
     } catch (error) {
@@ -34,16 +33,16 @@ const discover = async () => {
   const timeSpent = ((new Date().getTime()) - startTime) / 1000;
   console.log(`// Completed in  ${timeSpent} secs!`);
 
-  console.log(`Total of ${rooms.length} rooms.`);
-  csvWriter.saveToCSV(rooms);
-  // outputRooms(rooms);
+  console.log(`Total of ${results.length} results.`);
+  csvWriter.saveToCSV(results);
+  // outputResults(results);
 };
 
-const outputRooms = (rooms: any) => {
-  if (rooms.length) {
-    console.log(`// Rooms: \n${JSON.stringify(rooms, null, 2)}`);
+const outputResults = (results: any) => {
+  if (results.length) {
+    console.log(`// Rooms: \n${JSON.stringify(results, null, 2)}`);
   } else {
-    console.log('// No rooms found!');
+    console.log('// No results found!');
   }
 };
 

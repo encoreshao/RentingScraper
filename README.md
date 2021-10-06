@@ -11,7 +11,7 @@
 yarn build
 ```
 
-### Command to scrape all rooms from list page, and write the results into tmp/rooms.csv
+### Command to scrape all rooms from list page, and write the results into outputs/rooms-${uuid}.csv
 
 ```
 yarn discover https://sh.zu.anjuke.com/fangyuan/pudong-q-jinqiao/fx2-l2-x1-zj107/

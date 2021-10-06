@@ -5,21 +5,22 @@ const userAgent = require('user-agents');
 
 // we're using async/await - so we need an async function, that we can run
 const scrape = async () => {
-  // Urls
-  //
-  // https://sh.58.com/pudongxinqu/chuzu/0/j2/
-  // https://www.douban.com/group/pudongzufang/
-  // https://www.douban.com/group/shanghaizufang/
-  // https://www.douban.com/group/383972/
-  // https://www.douban.com/group/SHwoman/
-  // https://sh.5i5j.com/zufang/pudongxinqu/r2u1/
   const url = process.argv[2];
 
   // Generate filename of pdf and screenshot
-  let filename = 'renting'
-  if (url.match(/58./)) { filename = '58' }
-  if (url.match(/douban./)) { filename = 'douban' }
-  if (url.match(/5i5j./)) { filename = '5i5j' }
+  let filename: string;
+
+  if (url.match(/58./)) {
+    filename = '58'
+  } else if (url.match(/douban./)) {
+    filename = 'douban'
+  } else if (url.match(/5i5j./)) {
+    filename = '5i5j'
+  } else if (url.match(/anjuke./)) {
+    filename = 'anjuke'
+  } else {
+    filename = 'renting'
+  }
 
   const browser = await require('./utils/browser').startBrowser();
   let page = await browser.newPage();

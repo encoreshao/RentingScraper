@@ -1,6 +1,6 @@
 async function saveToPDF(page: any, filename: string) {
   // Save a pdf of the results.
-  const pdfPath = `./tmp/${filename}.pdf`;
+  const pdfPath = `./outputs/${filename}.pdf`;
 
   await page.pdf({
     path: pdfPath,

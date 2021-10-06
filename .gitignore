@@ -6,3 +6,7 @@ yarn-error.log
 /node_modules
 /log
 /tmp
+
+/outputs/*.pdf
+/outputs/*.csv
+/outputs/*.png

@@ -1,8 +1,10 @@
 // 我爱我家：https://sh.5i5j.com/zufang/pudongxinqu/r2u1n5/
 // 安居客：https://sh.zu.anjuke.com/fangyuan/fx2-l2-x1/
 
+async function pageURL(page: any) { return await page.url() }
+
 async function waitContentSelector(page: any) {
-  const url = await page.url();
+  const url = await pageURL(page);
 
   if (url.match(/5i5j.com/)) {
     await page.waitForSelector('div.list-con-box');
@@ -11,8 +13,8 @@ async function waitContentSelector(page: any) {
   }
 }
 
-async function searchRoomItems(page: any) {
-  const url = await page.url();
+async function searchContentItems(page: any) {
+  const url = await pageURL(page);
   let newItems: any = [];
 
   if (url.match(/5i5j.com/)) {
@@ -48,6 +50,7 @@ async function searchRoomItems(page: any) {
       return rowList;
     });
   }
+  newItems = newItems.filter((item: any) => (item.name !== '' && item.name !== undefined));
 
   console.log(`// Total of ${newItems.length} rooms was found from ${url}`);
   return newItems;
@@ -55,6 +58,7 @@ async function searchRoomItems(page: any) {
 
 async function triggerContentPaginationSelector(page: any) {
   const url = await page.url();
+
   if (url.match(/5i5j.com/)) {
     await page.click('div.pageSty a.cPage');
   } else if (url.match(/anjuke.com/)) {
@@ -64,6 +68,6 @@ async function triggerContentPaginationSelector(page: any) {
 
 module.exports = {
   waitContentSelector,
-  searchRoomItems,
+  searchContentItems,
   triggerContentPaginationSelector
 };
