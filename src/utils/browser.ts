@@ -6,7 +6,7 @@ puppeteer.use(StealthPlugin())
 async function startBrowser(){
   let browser: any;
   try {
-    console.log(`// Opening the browser......`);
+    console.log(`// 打开浏览器......`);
 
     // await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36');
     // await page.setUserAgent('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
@@ -29,7 +29,7 @@ async function startBrowser(){
 
     browser = await puppeteer.launch(options);
   } catch (err: any) {
-    console.log(`// Could not create a browser instance: ${err.message}`);
+    console.log(`// 不能创建浏览器实例: ${err.message}`);
   }
   return browser;
 }

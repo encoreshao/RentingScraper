@@ -1,7 +1,6 @@
 const pdf = require('./utils/pdf');
 const screenshot = require('./utils/screenshot');
 const linkScrapeTool = require('./utils/linkScrape')
-const userAgent = require('user-agents');
 
 // we're using async/await - so we need an async function, that we can run
 const scrape = async () => {
@@ -24,19 +23,31 @@ const scrape = async () => {
 
   const browser = await require('./utils/browser').startBrowser();
   let page = await browser.newPage();
-  await page.setUserAgent(userAgent.toString());
 
-  // open the page to scrape
+  // Output the user agent with current browser
+  // const currentUserAgent = await browser.userAgent()
+  // console.log(`// Current user agent: ${currentUserAgent}`);
+
+  const newUserAgent = require('random-useragent').getRandom();
+  console.log(`// Set a new user agent: ${newUserAgent}.`);
+  await page.setUserAgent(newUserAgent);
+
+  // Open the page to scrape
   await page.goto(url, { waitUntil: 'load' });
   // await page.goto(url);
   // await page.waitForSelector('body');
   // await page.waitFor(60000);
 
+  // Get the User Agent on the context of Puppeteer
+  // const userAgent = await page.evaluate(() => navigator.userAgent );
+  // console.log(userAgent);
+
   const links: any = [];
   const newLinks = await linkScrapeTool.linkScrape(page);
   links.push(...newLinks);
 
-  console.log(`All Links: \n`, links);
+  // console.log(`All Links: \n`, links);
+  console.log(`// Got ${links.length} links from ${url}.`);
 
   await pdf.saveToPDF(page, filename);
   await screenshot.saveToScreenshot(page, filename);
