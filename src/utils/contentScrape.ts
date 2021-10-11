@@ -1,5 +1,4 @@
-// 我爱我家：https://sh.5i5j.com/zufang/pudongxinqu/r2u1n5/
-// 安居客：https://sh.zu.anjuke.com/fangyuan/fx2-l2-x1/
+const sleep = require('sleep')
 
 async function pageURL(page: any) { return await page.url() }
 
@@ -11,7 +10,7 @@ async function waitContentSelector(page: any) {
   } else if (url.match(/anjuke.com/)) {
     await page.waitForSelector('div.list-content');
   } else if (url.match(/douban.com/)) {
-    await page.click('div.article');
+    await page.waitForSelector('div.article');
   }
 }
 
@@ -58,7 +57,7 @@ async function searchContentItems(page: any) {
         rowList.push({
           'name': row.querySelector('td.title a') && row.querySelector('td.title a').title,
           'money': null,
-          'info': row.querySelector('td:nth-child(2)') && row.querySelector('td.nowrap:nth-child(2)').innerText.trim(),
+          'info': row.querySelector('td:nth-child(2)') && row.querySelector('td:nth-child(2)').innerText.trim(),
           'url': row.querySelector('td.title a') && row.querySelector('td.title a').href,
           'address': row.querySelector('td.r-count') && row.querySelector('td.r-count').innerText.trim(),
           'extra_info': row.querySelector('td.time') && row.querySelector('td.time').innerText.trim(),
@@ -82,7 +81,8 @@ async function triggerContentPaginationSelector(page: any) {
   } else if (url.match(/anjuke.com/)) {
     await page.click('div.multi-page a.aNxt');
   } else if (url.match(/douban.com/)) {
-    await page.click('div.paginator span.thispage');
+    await sleep(300);
+    await page.click('div.paginator span.next a');
   }
 }
 

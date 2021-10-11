@@ -39,7 +39,13 @@ const discover = async () => {
 
   console.log(`// 内容解析...`);
   while (moreResults) {
-    await contentScrape.waitContentSelector(page);
+    try {
+      await contentScrape.waitContentSelector(page);
+    } catch (error) {
+      console.log(`// 为找到内容块...`, error.message);
+      moreResults = false;
+    }
+
     const newItems = await contentScrape.searchContentItems(page);
 
     if (newItems.length > 0) {
@@ -48,6 +54,7 @@ const discover = async () => {
       try {
         await contentScrape.triggerContentPaginationSelector(page);
       } catch (error) {
+        console.log(`// 解析内容块失败...`, error.message);
         moreResults = false;
       }
     } else {
@@ -62,7 +69,8 @@ const discover = async () => {
   console.log(`// 总耗时 ${timeSpent} 秒!`);
 
   console.log(`// 共计 ${results.length} 个结果.`);
-  csvWriter.saveToCSV(results);
+  if (results.length > 0) { csvWriter.saveToCSV(results); }
+
   // outputResults(results);
 };
 

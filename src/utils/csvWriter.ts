@@ -28,7 +28,7 @@ async function saveToCSV(results: any){
   // Writerecords function to add records
   csvWriter
     .writeRecords(results)
-    .then(()=> console.log(`// Data was scraped into csv successfully.`));
+    .then(()=> console.log(`// 数据成功保存到 ${finalCSVPath} 中.`));
 
   createReadStream();
 }
@@ -42,7 +42,7 @@ async function createReadStream() {
       console.log(row);
     })
     .on('end', () => {
-      console.log('// Success');
+      console.log('// 成功！');
     });
 }
 
